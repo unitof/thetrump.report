@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>The Trump Report</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script type="text/javascript">
+		function return_json(result) {
+			let rcpAvg = result.poll.rcp_avg;
+			let latestObj = rcpAvg[0]; // safer: sort by date?
+			let latestDate = new Date(latestObj.date);
+			console.log("Updated", latestDate);
+			let latestFavScore = latestObj.candidate[0].value;
+			let latestUnfavScore = latestObj.candidate[1].value;
+			console.log("  Unfav", latestUnfavScore);
+			console.log("    Fav", latestFavScore)
+		}
+
+		$.ajax({
+			url: 'http://www.realclearpolitics.com/epolls/json/5493_historical.js?callback=return_json',
+			dataType: 'jsonp',
+			jsonpCallback: 'return_json'
+		})
+	</script>
+</head>
+<body>
+
+</body>
+</html>
