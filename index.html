@@ -2,27 +2,42 @@
 <html>
 <head>
 	<title>The Trump Report</title>
+	<link rel="stylesheet" type="text/css" href="style.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.4.3/d3.min.js"></script>
 	<script type="text/javascript">
+		// lazy global variables because I'm not smart like those other guys
+		let rcpAvg = {};
+		let latestObj = {};
+		let latestUnfavScore = 0;
+		let latestFavScore = 0;
+		let latestDate = new Date();
 		function return_json(result) {
-			let rcpAvg = result.poll.rcp_avg;
-			let latestObj = rcpAvg[0]; // safer: sort by date?
-			let latestDate = new Date(latestObj.date);
+			rcpAvg = result.poll.rcp_avg;
+			latestObj = rcpAvg[0]; // safer: sort by date?
+			latestDate = new Date(latestObj.date);
 			console.log("Updated", latestDate);
-			let latestFavScore = latestObj.candidate[0].value;
-			let latestUnfavScore = latestObj.candidate[1].value;
+			latestFavScore = +latestObj.candidate[0].value;
+			latestUnfavScore = +latestObj.candidate[1].value;
 			console.log("  Unfav", latestUnfavScore);
-			console.log("    Fav", latestFavScore)
-		}
+			console.log("    Fav", latestFavScore);
+			// fill the bar!
+			d3.select("#mercury").attr('width', latestFavScore * 10 + "px");
+		};
 
 		$.ajax({
 			url: 'http://www.realclearpolitics.com/epolls/json/5493_historical.js?callback=return_json',
 			dataType: 'jsonp',
 			jsonpCallback: 'return_json'
-		})
+		});
 	</script>
 </head>
 <body>
-
+	<svg id="trumpometer" viewBox="0 0 1000 1000" preserveAspectRatio="none">
+		<rect id="background" x="0" y="0" width="100%" height="100%"></rect>
+		<rect id="mercury" x="0" y="0" width="0" height="100%"></rect>
+	</svg>
+	<!-- This is a simple bar graph representing Trump's percent approval, from RCP. More to come later. -->
+	<!-- Ask the console for `latestDate` for the date of this data. -->
 </body>
 </html>
