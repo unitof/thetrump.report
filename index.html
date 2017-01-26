@@ -12,8 +12,9 @@
 		let latestUnfavScore = 0;
 		let latestFavScore = 0;
 		let latestDate = new Date();
-		function return_json(result) {
-			rcpAvg = result.poll.rcp_avg;
+
+		function parseData(data) {
+			rcpAvg = data.poll.rcp_avg;
 			latestObj = rcpAvg[0]; // safer: sort by date?
 			latestDate = new Date(latestObj.date);
 			console.log("Updated", latestDate);
@@ -21,8 +22,19 @@
 			latestUnfavScore = +latestObj.candidate[1].value;
 			console.log("  Unfav", latestUnfavScore);
 			console.log("    Fav", latestFavScore);
-			// fill the bar!
+		};
+
+		function initFavBar() {
 			d3.select("#mercury").attr('width', latestFavScore * 10 + "px");
+		}
+
+		function vizData() {
+			initFavBar();
+		};
+
+		function return_json(result) {
+			parseData(result);
+			vizData();
 		};
 
 		$.ajax({
