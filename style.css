@@ -18,3 +18,12 @@ rect#background {
 rect#mercury {
 	fill: #111;
 }
+
+#textlabel text {
+	fill: #111;
+	font-family: Helvetica-Neue, Helvetica, sans-serif;
+	font-weight: bold;
+	font-size: 42px;
+	alignment-baseline: central;
+	transform: translateX(.2em);
+}
