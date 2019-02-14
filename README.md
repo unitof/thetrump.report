@@ -11,3 +11,7 @@ Rendered with the most basic d3 you done ever seen.
 And get this: global JS variables. Get over it.
 
 Someday I’ll make a favicon.
+
+## Deployment
+
+Thanks to [Now](https://zeit.co/now) for deploys like git pushes. Boy I wish I had Now in high school and servers were scary and everything broke always.
