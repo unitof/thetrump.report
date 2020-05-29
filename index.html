@@ -27,11 +27,17 @@
 
 		function initFavBar() {
 			d3.select("#mercury").attr('width', latestFavScore + "%");
-			d3.select("#textlabel")
+			d3.select("#percent")
 				.append('text')
 					.attr('x', latestFavScore + "%")
 					.attr('y', "50%")
 					.html(latestFavScore + '%');
+			d3.select("#percent")
+				.append('text')
+					.attr('x', latestFavScore + "%")
+					.attr('y', "50%") // bumped up by a translateY in CSS
+					.attr('class', 'label')
+					.html('FAVORABLE');
 		}
 
 		function vizData() {
@@ -54,7 +60,7 @@
 	<svg id="trumpometer" width="100" height="100">
 		<rect id="background" x="0" y="0" width="100%" height="100%"></rect>
 		<rect id="mercury" x="0" y="0" width="0" height="100%"></rect>
-		<g id="textlabel"></g>
+		<g id="percent"></g>
 	</svg>
 	<!-- This is a simple bar graph representing Trump's percent approval, snuck from RCP. -->
 	<!-- Ask the console for `latestDate` to learn how recent the score is. -->
